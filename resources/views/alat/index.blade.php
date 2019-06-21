@@ -16,7 +16,7 @@ Dashboard
       <table class="table table-bordered" id="alat-table">
           <thead>
               <tr>
-                  <th>Id</th>
+                  <th>ID Alat</th>
                   <th>Jenis Peralatan</th>
                   <th>Tipe</th>
                   <th>Kapasitas</th>

@@ -7,6 +7,7 @@ use App\Transaksi;
 use App\Alat;   
 use Yajra\Datatables\Datatables;
 use DateTime;
+use DB;
 class TransaksiController extends Controller
 {
      /**
@@ -20,12 +21,15 @@ class TransaksiController extends Controller
         return view('transaksi.index');
     }
     public function getData(){
-        return Datatables::of(Transaksi::query())->addColumn('action', function ($t) {
-            return '<a href="'.route('alat.edit',['id'=>$t->id]).'" class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-edit"></i> Edit</a><a href="'.route('alat.delete',['id'=>$t->id]).'" class="btn btn-xs btn-danger"><i class="glyphicon glyphicon-delete"></i> Delete</a>';
+
+        $data = Transaksi::select('transaksis.id','alats.id as alat_id','tanggal_pinjam','tanggal_rencana_kembali','nama_peminjam',DB::RAW('(CASE WHEN tanggal_kembali IS NULL THEN "Belum Dikembalikan" ELSE "Dikembalikan" END) as status_pinjam'),
+        'transaksis.created_at')->join('alats','alats.id','transaksis.id');
+        return Datatables::of($data)->addColumn('action', function ($t) {
+            return '<a href="'.route('alat.edit',['id'=>$t->id]).'" class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-edit"></i> Perbarui</a>';
         })
         ->make(true);
     }
-    /**
+    /**                                                                               x
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response

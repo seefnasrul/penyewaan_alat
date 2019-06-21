@@ -7,22 +7,21 @@ Traksaksi Peminjaman
 @section('content')
 <section class="section">
   <div class="section-header">
-          <h1>Transaksi Peminjaman</h1>
+          <h1>History Transaksi Penyewaan</h1>
           
   </div>
 
   <div class="section-body">
-      <a class="btn btn-primary"style="text-alight:right" href="{{route('alat.create')}}">Tambah</a>
-      <table class="table table-bordered" id="alat-table">
+      <table class="table table-bordered" id="transaksi-table">
           <thead>
               <tr>
-                  <th>Id</th>
-                  <th>Jenis Peralatan</th>
-                  <th>Tipe</th>
-                  <th>Kapasitas</th>
-                  <th>Harga Sewa / Hari (Rp)</th>
+                  <th>ID Transaksi</th>
+                  <th>ID Alat</th>
+                  <th>Tanggal Pinjam</th>
+                  <th>Tanggal Rencana Kembali</th>
+                  <th>Nama Penyewa</th>
+                  <th>Status Sewa</th>
                   <th>Created At</th>
-                  <th>Updated At</th>
                   <th>Action</th>
               </tr>
           </thead>
@@ -32,18 +31,18 @@ Traksaksi Peminjaman
 @push('scripts')
 <script>
     $(function() {
-        $('#alat-table').DataTable({
+        $('#transaksi-table').DataTable({
             processing: true,
             serverSide: true,
-            ajax: '{!! route('alat.get-data') !!}',
+            ajax: '{!! route('transaksi.get-data') !!}',
             columns: [
                 { data: 'id', name: 'id' },
-                { data: 'jenis_peralatan', name: 'jenis_peralatan' },
-                { data: 'tipe', name: 'tipe' },
-                { data: 'kapasitas', name: 'kapasitas' },
-                { data: 'harga_sewa_perhari', name: 'harga_sewa_perhari' },
+                { data: 'alat_id', name: 'alat_id' },
+                { data: 'tanggal_pinjam', name: 'tanggal_pinjam' },
+                { data: 'tanggal_rencana_kembali', name: 'tanggal_rencana_kembali' },
+                { data: 'nama_peminjam', name: 'nama_peminjam' },
+                { data: 'status_pinjam', name: 'status_pinjam' ,searchable: false},
                 { data: 'created_at', name: 'created_at' },
-                { data: 'updated_at', name: 'updated_at' },
               {data: 'action', name: 'action', orderable: false, searchable: false}
             ]
         });
