@@ -54,6 +54,17 @@ Or if your database is fresh and you haven't done any work yet, then it's safe t
 php artisan migrate:refresh --seed
 ```
 
+Cara menjalannkannya
+-Nyalakan Xampp start apache mysql
+-run laravel dengan cara
+```shell
+php artisan serve
+```
+
+akses server melalui Https://127.0.0.1:8000/login
+
+
+
 
 
 ### Contribution:
