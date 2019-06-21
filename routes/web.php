@@ -49,9 +49,7 @@ Route::name('transaksi.')->prefix('transaksi')->group(function() {
     Route::get('create/{id}','TransaksiController@create')->name('create');
     Route::post('create','TransaksiController@store')->name('store');
     Route::get('get-data','TransaksiController@getData')->name('get-data');
-    // Route::get('{id}/edit','AlatController@edit')->name('edit');
-    // Route::put('{id}','AlatController@update')->name('update');
-    // Route::get('{id}/delete','AlatController@destroy')->name('delete');
+    Route::get('get-data-tambah-transaksi','TransaksiController@getDataTambahTransaksi')->name('get-data-tambah-transaksi');
 });
 
 
