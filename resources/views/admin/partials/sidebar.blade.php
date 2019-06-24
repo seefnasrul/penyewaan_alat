@@ -14,8 +14,9 @@
       @endif
       <li class="menu-header">Master</li>
       <li class="{{ Request::route()->getName() == 'alat.index' ? ' active' : '' }}"><a class="nav-link" href="{{ route('alat.index') }}"><i class="fa fa-truck-pickup"></i> <span>Alat</span></a></li>
+      <li class="{{ Request::route()->getName() == 'pengguna.index' ? ' active' : '' }}"><a class="nav-link" href="{{ route('pengguna.index') }}"><i class="fa fa-users"></i> <span>Pengguna</span></a></li>
       <li class="menu-header">Transaksi</li>
-      <li class="{{-- Request::route()->getName() == 'transaksi.index' ? ' active' : '' --}}"><a class="nav-link" href="{{ route('alat.index') }}"><i class="fa fa-plus-square"></i> <span>Tambah Transaksi</span></a></li>
+      <li class="{{ Request::route()->getName() == 'transaksi.add-list' ? ' active' : '' }}"><a class="nav-link" href="{{ route('transaksi.add-list') }}"><i class="fa fa-plus-square"></i> <span>Tambah Transaksi</span></a></li>
       
       <li class="{{ Request::route()->getName() == 'transaksi.index' ? ' active' : '' }}"><a class="nav-link" href="{{ route('transaksi.index') }}"><i class="fa fa-book-medical"></i> <span>History Transaksi</span></a></li>
       

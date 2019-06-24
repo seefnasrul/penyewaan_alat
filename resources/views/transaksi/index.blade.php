@@ -48,5 +48,18 @@ Traksaksi Peminjaman
         });
     });
     </script>
+    {{-- @if($message = Session::get('success')) --}}
+    <script>
+        var toast = new iqwerty.toast.Toast();
+        toast
+        .setText("<p>asdasdas</p>")
+        .stylize({
+            background: '#007E33',
+            color: 'white',
+            'box-shadow': '0 0 50px rgba(0, 0, 0, .7)'
+        })
+        .show();
+    </script>
+    {{-- @endif --}}
   @endpush
 @endsection

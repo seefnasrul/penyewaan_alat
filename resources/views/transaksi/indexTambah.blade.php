@@ -1,13 +1,13 @@
 @extends('layouts.admin-master')
 
 @section('title')
-Dashboard
+Tambah Transaksi
 @endsection
 
 @section('content')
 <section class="section">
   <div class="section-header">
-          <h1>Alat</h1>
+          <h1>Daftar Tambah Transaksi</h1>
           
   </div>
 
