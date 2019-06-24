@@ -18,7 +18,7 @@ class AlatController extends Controller
     }
     public function getAlats(){
         return Datatables::of(Alat::query())->addColumn('action', function ($alat) {
-            return '<a href="'.route('alat.edit',['id'=>$alat->id]).'" class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-edit"></i> Edit</a><a href="'.route('alat.delete',['id'=>$alat->id]).'" class="btn btn-xs btn-danger"><i class="glyphicon glyphicon-delete"></i> Delete</a><a href="'.route('transaksi.create',['id'=>$alat->id]).'" class="btn btn-xs btn-success"><i class="glyphicon glyphicon-delete"></i> Pinjam</a>';
+            return '<a href="'.route('alat.edit',['id'=>$alat->id]).'" class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-edit"></i> Edit</a><a href="'.route('alat.delete',['id'=>$alat->id]).'" class="btn btn-xs btn-danger"><i class="glyphicon glyphicon-delete"></i> Delete</a>';
         })
         ->make(true);
     }

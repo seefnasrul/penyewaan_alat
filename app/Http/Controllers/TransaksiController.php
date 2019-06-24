@@ -26,8 +26,17 @@ class TransaksiController extends Controller
     }
 
     public function getDataTambahTransaksi(){
-        return Datatables::of(Alat::query())->addColumn('action', function ($alat) {
-            return '<a href="'.route('alat.edit',['id'=>$alat->id]).'" class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-edit"></i> Edit</a><a href="'.route('alat.delete',['id'=>$alat->id]).'" class="btn btn-xs btn-danger"><i class="glyphicon glyphicon-delete"></i> Delete</a><a href="'.route('transaksi.create',['id'=>$alat->id]).'" class="btn btn-xs btn-success"><i class="glyphicon glyphicon-delete"></i> Pinjam</a>';
+        $data = Alat::select('alats.*')->leftjoin('transaksis','alats.id','transaksis.alat_id');
+        $data = $data->where(function($query) {
+            $query->where('transaksis.tanggal_kembali','=',null)
+            ->where('transaksis.tanggal_pinjam','=',null);
+        })->orWhere(function($query) {
+            $query->where('transaksis.tanggal_kembali','!=',null)
+            ->where('transaksis.tanggal_pinjam','!=',null);
+        });
+
+        return Datatables::of($data)->addColumn('action', function ($alat) {
+            return '<a href="'.route('transaksi.create',['id'=>$alat->id]).'" class="btn btn-xs btn-success"><i class="glyphicon glyphicon-delete"></i> Pinjam</a>';
         })
         ->make(true);
     }
@@ -130,9 +139,13 @@ class TransaksiController extends Controller
      */
     public function edit($id)
     {
-        // $alat = Alat::find($id);
-        // if(!$alat) return redirect()->back();
-        // return view('alat.edit',['alat'=>$alat]);
+        $transaksi = Transaksi::find($id);
+        if(!$transaksi) return redirect()->back();
+
+        $alat = Alat::find($transaksi->alat_id);
+        if(!$alat) return redirect()->back();
+        
+        return view('transaksi.edit',['transaksi'=>$transaksi,'alat'=>$alat]);
     }
 
     /**

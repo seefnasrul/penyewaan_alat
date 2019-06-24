@@ -43,14 +43,15 @@
   </div>
 
   <script src="{{ route('js.dynamic') }}"></script>
-  {{-- <script src="{{ asset('js/app.js') }}?{{ uniqid() }}"></script> --}}
-  {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.nicescroll/3.7.6/jquery.nicescroll.min.js"></script> --}}
+  <script src="{{ asset('js/app.js') }}?{{ uniqid() }}"></script> 
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.nicescroll/3.7.6/jquery.nicescroll.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+  <script src="{{ asset('assets/js/scripts.js') }}"></script>
   <script src="{{ asset('assets/js/stisla.js') }}"></script>
-  {{-- <script src="{{ asset('assets/js/scripts.js') }}"></script> --}}
+  
 
-  <script src="//code.jquery.com/jquery.js"></script>
   <!-- DataTables -->
+  
   <script src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
   <!-- Bootstrap JavaScript -->
   <script src="//netdna.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>

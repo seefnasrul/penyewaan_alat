@@ -49,6 +49,7 @@ Route::name('transaksi.')->prefix('transaksi')->group(function() {
     Route::get('create/{id}','TransaksiController@create')->name('create');
     Route::post('create','TransaksiController@store')->name('store');
     Route::get('get-data','TransaksiController@getData')->name('get-data');
+    Route::get('add-list','TransaksiController@indexTambahTransaksi')->name('add-list');
     Route::get('get-data-tambah-transaksi','TransaksiController@getDataTambahTransaksi')->name('get-data-tambah-transaksi');
 });
 
