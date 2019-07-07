@@ -145,6 +145,9 @@ class TransaksiController extends Controller
         $alat = Alat::find($transaksi->alat_id);
         if(!$alat) return redirect()->back();
         
+
+        // return response($transaksi);
+
         return view('transaksi.edit',['transaksi'=>$transaksi,'alat'=>$alat]);
     }
 

@@ -18,5 +18,9 @@
       <li class="menu-header">Transaksi</li>
       <li class="{{ Request::route()->getName() == 'transaksi.add-list' ? ' active' : '' }}"><a class="nav-link" href="{{ route('transaksi.add-list') }}"><i class="fa fa-plus-square"></i> <span>Tambah Transaksi</span></a></li>
       <li class="{{ Request::route()->getName() == 'transaksi.index' ? ' active' : '' }}"><a class="nav-link" href="{{ route('transaksi.index') }}"><i class="fa fa-book-medical"></i> <span>History Transaksi</span></a></li>
+      <li class="menu-header">Laporan</li>
+      <li class="{{ Request::route()->getName() == 'laporan.index' ? ' active' : '' }}"><a class="nav-link" href="{{ route('laporan.index') }}"><i class="fa fa-file-excel"></i> <span>Laporan Bulanan</span></a></li>
+      
+      
     </ul>
 </aside>

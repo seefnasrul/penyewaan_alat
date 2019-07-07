@@ -65,6 +65,9 @@ Route::name('pengguna.')->prefix('pengguna')->group(function() {
     Route::get('{id}/edit','PenggunaController@edit')->name('edit');
     Route::put('{id}','PenggunaController@update')->name('update');
     Route::get('{id}/delete','PenggunaController@destroy')->name('delete');
-    
+});
+
+Route::name('laporan.')->prefix('laporan')->group(function() {
+    Route::get('','LaporanController@index')->name('index');
 });
 

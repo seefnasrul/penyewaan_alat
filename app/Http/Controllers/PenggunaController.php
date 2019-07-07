@@ -71,9 +71,9 @@ class PenggunaController extends Controller
      */
     public function edit($id)
     {
-        $alat = Alat::find($id);
-        if(!$alat) return redirect()->back();
-        return view('alat.edit',['alat'=>$alat]);
+        $pengguna = User::find($id);
+        if(!$pengguna) return redirect()->back();
+        return view('pengguna.edit',['pengguna'=>$pengguna]);
     }
 
     /**
@@ -86,15 +86,14 @@ class PenggunaController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'jenis_peralatan'=>'required',
-            'tipe'=>'required',
-            'no_reg'=>'required',
-            'harga_sewa_perhari'=>'required|integer',
+            'name'=>'required',
+            'email'=>'required',
+            'jabatan'=>'required|in:pemilik,karyawan',
         ]);
-        $alat = Alat::find($id);
-        if(!$alat) return redirect()->back();
-        $alat->update($request->all());
-        return redirect()->route('alat.index');
+        $pengguna = User::find($id);
+        if(!$pengguna) return redirect()->back();
+        $pengguna->update($request->all());
+        return redirect()->route('pengguna.index');
     }
 
     /**

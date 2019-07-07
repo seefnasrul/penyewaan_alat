@@ -1,24 +1,25 @@
 @extends('layouts.admin-master')
 
 @section('title')
-Pengguna
+Laporan Bulanan
 @endsection
 
 @section('content')
 <section class="section">
   <div class="section-header">
-          <h1>Pengguna</h1>
+          <h1>Laporan</h1>
   </div>
 
   <div class="section-body">
-      <a class="btn btn-primary"style="text-alight:right" href="{{route('register')}}">Tambah</a>
+      <a class="btn btn-primary"style="text-alight:right" href="{{route('alat.create')}}">Tambah</a>
       <table class="table table-bordered" id="alat-table">
           <thead>
               <tr>
-                  <th>ID User</th>
-                  <th>Nama</th>
-                  <th>Email</th>
-                  <th>Jabatan</th>
+                  <th>ID Alat</th>
+                  <th>Jenis Peralatan</th>
+                  <th>Tipe</th>
+                  <th>Kapasitas</th>
+                  <th>Harga Sewa / Hari (Rp)</th>
                   <th>Created At</th>
                   <th>Updated At</th>
                   <th>Action</th>
@@ -33,12 +34,13 @@ Pengguna
         $('#alat-table').DataTable({
             processing: true,
             serverSide: true,
-            ajax: '{!! route('pengguna.get-data') !!}',
+            ajax: '{!! route('alat.get-data') !!}',
             columns: [
                 { data: 'id', name: 'id' },
-                { data: 'name', name: 'name' },
-                { data: 'email', name: 'email' },
-                { data: 'jabatan', name: 'jabatan' },
+                { data: 'jenis_peralatan', name: 'jenis_peralatan' },
+                { data: 'tipe', name: 'tipe' },
+                { data: 'kapasitas', name: 'kapasitas' },
+                { data: 'harga_sewa_perhari', name: 'harga_sewa_perhari' },
                 { data: 'created_at', name: 'created_at' },
                 { data: 'updated_at', name: 'updated_at' },
                 {data: 'action', name: 'action', orderable: false, searchable: false}
