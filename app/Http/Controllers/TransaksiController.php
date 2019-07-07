@@ -8,6 +8,7 @@ use App\Alat;
 use Yajra\Datatables\Datatables;
 use DateTime;
 use DB;
+USE Carbon\Carbon;
 class TransaksiController extends Controller
 {
      /**
@@ -34,7 +35,10 @@ class TransaksiController extends Controller
             $query->where('transaksis.tanggal_kembali','!=',null)
             ->where('transaksis.tanggal_pinjam','!=',null);
         });
+<<<<<<< HEAD
 
+=======
+>>>>>>> 2f8905bdae88044851027fe3c4c86084eb03b855
         return Datatables::of($data)->addColumn('action', function ($alat) {
             return '<a href="'.route('transaksi.create',['id'=>$alat->id]).'" class="btn btn-xs btn-success"><i class="glyphicon glyphicon-delete"></i> Pinjam</a>';
         })
@@ -44,9 +48,9 @@ class TransaksiController extends Controller
     public function getData(){
 
         $data = Transaksi::select('transaksis.id','alats.id as alat_id','tanggal_pinjam','tanggal_rencana_kembali','nama_peminjam',DB::RAW('(CASE WHEN tanggal_kembali IS NULL THEN "Belum Dikembalikan" ELSE "Dikembalikan" END) as status_pinjam'),
-        'transaksis.created_at')->join('alats','alats.id','transaksis.id');
+        'transaksis.created_at')->join('alats','alats.id','transaksis.alat_id');
         return Datatables::of($data)->addColumn('action', function ($t) {
-            return '<a href="'.route('alat.edit',['id'=>$t->id]).'" class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-edit"></i> Perbarui</a>';
+            return '<a href="'.route('transaksi.edit',['id'=>$t->id]).'" class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-edit"></i> Perbarui</a>';
         })
         ->make(true);
     }
@@ -116,7 +120,7 @@ class TransaksiController extends Controller
         $transaksi->no_ktp_sim = $request->no_ktp_sim;
         $transaksi->save();
 
-        return redirect()->route('transaksi.index');
+        return redirect()->route('transaksi.index')->with('success','Simpan Berhasil!');
         
     }
 
@@ -141,10 +145,15 @@ class TransaksiController extends Controller
     {
         $transaksi = Transaksi::find($id);
         if(!$transaksi) return redirect()->back();
+<<<<<<< HEAD
 
         $alat = Alat::find($transaksi->alat_id);
         if(!$alat) return redirect()->back();
         
+=======
+        $alat = Alat::find($transaksi->alat_id);
+        if(!$alat) return redirect()->back();
+>>>>>>> 2f8905bdae88044851027fe3c4c86084eb03b855
         return view('transaksi.edit',['transaksi'=>$transaksi,'alat'=>$alat]);
     }
 
@@ -156,19 +165,27 @@ class TransaksiController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {
-        // $request->validate([
-        //     'jenis_peralatan'=>'required',
-        //     'tipe'=>'required',
-        //     'no_reg'=>'required',
-        //     'harga_sewa_perhari'=>'required|integer',
-        // ]);
-        // $alat = Alat::find($id);
-        // if(!$alat) return redirect()->back();
-        // $alat->update($request->all());
-        // return redirect()->route('alat.index');
-    }
+    {   
+        $transaksi = Transaksi::find($id);
+        if(!$transaksi) return redirect()->back();
+        $request->validate([
+            'tanggal_kembali'=>'required|date',
+        ]);
+        
+        if($request->tanggal_kembali > $transaksi->tanggal_rencana_kembali){
+            $to = Carbon::createFromFormat('Y-m-d',$transaksi->tanggal_rencana_kembali);
+            $from = Carbon::createFromFormat('Y-m-d',$request->tanggal_kembali);
+            $diff_in_days = $to->diffInDays($from);
+            $denda = $diff_in_days*(($transaksi->total_biaya_sewa/$transaksi->lama_hari)*1.2);   
+            $transaksi->update(['total_denda'=>$denda]);
+        }else{
+            $transaksi->update(['total_denda'=>0]);
+        }
 
+        $transaksi->update(['tanggal_kembali'=>$request->tanggal_kembali]);
+
+        return redirect()->route('transaksi.index')->withSuccess('Perbaruan Berhasil!');
+    }
     /**
      * Remove the specified resource from storage.
      *

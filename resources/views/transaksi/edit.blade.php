@@ -1,18 +1,32 @@
 @extends('layouts.admin-master')
 
 @section('title')
+<<<<<<< HEAD
 Tambah Transaksi
+=======
+Perbarui Transaksi
+>>>>>>> 2f8905bdae88044851027fe3c4c86084eb03b855
 @endsection
 
 @section('content')
 <section class="section">
   <div class="section-header">
+<<<<<<< HEAD
     <h1>Tambah Transaksi</h1>
+=======
+    <h1>Perbarui Transaksi</h1>
+>>>>>>> 2f8905bdae88044851027fe3c4c86084eb03b855
   </div>
 
   <div class="section-body">
     <div class="container">
+<<<<<<< HEAD
             <form action="{{route('transaksi.store')}}" enctype="multipart/form-data" method="POST">
+=======
+            <form action="{{route('transaksi.update',['id'=>$transaksi->id])}}" enctype="multipart/form-data" method="POST" >
+                
+                    {{ method_field('PUT') }}
+>>>>>>> 2f8905bdae88044851027fe3c4c86084eb03b855
         <div class="row">
                 <div class="col-md-6">
                         <table class="table table-sm table-striped">
@@ -75,10 +89,29 @@ Tambah Transaksi
                                         <th>Total Biaya Sewa</th>
                                         <th id="total-biaya">Rp0</th>
                                       </tr>
+<<<<<<< HEAD
                                     </tbody>
                                   </table>
                         
                         <button type="submit" class="btn btn-primary btn-block">Simpan Transaksi</button>
+=======
+                                      <tr>
+                                        <td>Lama Melebihi Batas Peminjaman (Hari)</th>
+                                        <td id="lama-denda-hari">Rp0</th>
+                                      </tr>
+                                      <tr>
+                                            <td>Biaya Denda / Hari</th>
+                                            <td id="total-biaya">Rp{{$alat->harga_sewa_perhari*1.2}} (120% dari biaya sewa normal)</th>
+                                        </tr>
+                                      <tr>
+                                        <th>Total Denda</th>
+                                        <th id="total-denda">Rp0</th>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                        
+                        <button type="submit" class="btn btn-primary btn-block">Perbarui Transaksi</button>
+>>>>>>> 2f8905bdae88044851027fe3c4c86084eb03b855
                 </div>
                 <div class="col-md-6">
                         {{ csrf_field() }}
@@ -94,7 +127,11 @@ Tambah Transaksi
 
                         <div class="form-group">
                                 <label>Nama Lengkap Penyewa</label>
+<<<<<<< HEAD
                                 <input type="text" class="form-control {{isset($errors->messages()['nama_peminjam']) ? ' invalid-input' : '' }}" placeholder="Nama Lengkap Penyewa" name="nama_peminjam">
+=======
+                        <input readonly value="{{$transaksi->nama_peminjam}}" type="text" class="form-control {{isset($errors->messages()['nama_peminjam']) ? ' invalid-input' : '' }}" placeholder="Nama Lengkap Penyewa" name="nama_peminjam">
+>>>>>>> 2f8905bdae88044851027fe3c4c86084eb03b855
                                 @if(isset($errors->messages()['nama_peminjam']))  
                                 <span class="error-message">*@foreach ($errors->messages()['nama_peminjam'] as $message)
                                         {{$message." "}}
@@ -103,9 +140,15 @@ Tambah Transaksi
                             </div>
                             <div class="form-group">
                                 <label>Tipe Identitas</label>
+<<<<<<< HEAD
                                 <select name="tipe_identitas" class="form-control {{isset($errors->messages()['tipe_identitas']) ? ' invalid-input' : '' }}">
                                     <option value="KTP">KTP</option>
                                     <option value="SIM">SIM</option>
+=======
+                                <select readonly name="tipe_identitas" class="form-control {{isset($errors->messages()['tipe_identitas']) ? ' invalid-input' : '' }}">
+                                    <option value="KTP" @if($transaksi->tipe_idenditas == "KTP") selected="selected" @endif>KTP</option>
+                                    <option value="SIM" @if($transaksi->tipe_idenditas == "SIM") selected="selected" @endif>SIM</option>
+>>>>>>> 2f8905bdae88044851027fe3c4c86084eb03b855
                                 </select>
                                 @if(isset($errors->messages()['tipe_identitas']))  
                                 <span class="error-message">*@foreach ($errors->messages()['tipe_identitas'] as $message)
@@ -115,7 +158,11 @@ Tambah Transaksi
                             </div>
                             <div class="form-group">
                                 <label>No KTP / SIM</label>
+<<<<<<< HEAD
                                 <input type="text" class="form-control {{isset($errors->messages()['no_ktp_sim']) ? ' invalid-input' : '' }}" placeholder="No KTP / SIM" name="no_ktp_sim">
+=======
+                                <input readonly value="{{$transaksi->no_ktp_sim}}}" type="text" class="form-control {{isset($errors->messages()['no_ktp_sim']) ? ' invalid-input' : '' }}" placeholder="No KTP / SIM" name="no_ktp_sim">
+>>>>>>> 2f8905bdae88044851027fe3c4c86084eb03b855
                                 @if(isset($errors->messages()['no_ktp_sim']))  
                                 <span class="error-message">*@foreach ($errors->messages()['no_ktp_sim'] as $message)
                                         {{$message." "}}
@@ -123,6 +170,7 @@ Tambah Transaksi
                                 @endif
                             </div>
 
+<<<<<<< HEAD
                 </div>
                 <div class="col-md-6">
                     <div class="form-group">
@@ -139,6 +187,31 @@ Tambah Transaksi
                     <div class="form-group">
                         <label>Tanggal Mulai Pinjam</label>
                         <input id="date_start" onChange="calculate()" type="date" class="form-control {{isset($errors->messages()['tanggal_pinjam']) ? ' invalid-input' : '' }}" placeholder="Tanggal Peminjaman" name="tanggal_pinjam">
+=======
+                            <div class="form-group">
+                                <label>Scan Identitas</label>
+                                {{-- <input type="file" class="form-control {{isset($errors->messages()['scan_identitas']) ? ' invalid-input' : '' }}" placeholder="No KTP / SIM" name="scan_identitas">
+                                @if(isset($errors->messages()['scan_identitas']))  
+                                <span class="error-message">*@foreach ($errors->messages()['scan_identitas'] as $message)
+                                        {{$message." "}}
+                                    @endforeach</span>
+                                @endif --}}
+                                <div class="card">
+                                    <div class="card-body">
+                                        <p class="card-title">Uploaded Scan</p>
+                                        <a style="pointer:hand;" href="{{url('uploads/'.$transaksi->scan_identitas)}}" target="_blank"><img src="{{url('uploads/'.$transaksi->scan_identitas)}}" alt="" height="150" /></a>
+                                    </div>
+                                </div>
+                            </div>
+
+                </div>
+                <div class="col-md-6">
+                    
+
+                    <div class="form-group">
+                        <label>Tanggal Mulai Pinjam</label>
+                    <input readonly value="{{$transaksi->tanggal_pinjam}}" id="date_start"  type="date" class="form-control {{isset($errors->messages()['tanggal_pinjam']) ? ' invalid-input' : '' }}" placeholder="Tanggal Peminjaman" name="tanggal_pinjam">
+>>>>>>> 2f8905bdae88044851027fe3c4c86084eb03b855
                         @if(isset($errors->messages()['tanggal_pinjam']))  
                         <span class="error-message">*@foreach ($errors->messages()['tanggal_pinjam'] as $message)
                                 {{$message." "}}
@@ -148,13 +221,30 @@ Tambah Transaksi
 
                     <div class="form-group">
                         <label>Tanggal Rencana Pengembalian</label>
+<<<<<<< HEAD
                         <input onChange="calculate()" id="date_end" type="date" class="form-control {{isset($errors->messages()['tanggal_rencana_kembali']) ? ' invalid-input' : '' }}" placeholder="Tanggal Rencana Pengembalian" name="tanggal_rencana_kembali">
+=======
+                        <input readonly value="{{$transaksi->tanggal_rencana_kembali}}" id="date_end" type="date" class="form-control {{isset($errors->messages()['tanggal_rencana_kembali']) ? ' invalid-input' : '' }}" placeholder="Tanggal Rencana Pengembalian" name="tanggal_rencana_kembali">
+>>>>>>> 2f8905bdae88044851027fe3c4c86084eb03b855
                         @if(isset($errors->messages()['tanggal_rencana_kembali']))  
                         <span class="error-message">*@foreach ($errors->messages()['tanggal_rencana_kembali'] as $message)
                                 {{$message." "}}
                             @endforeach</span>
                         @endif
                     </div>  
+<<<<<<< HEAD
+=======
+
+                    <div class="form-group">
+                        <label>Tanggal Pengembalian</label>
+                        <input min="{{$transaksi->tanggal_rencana_kembali}}" onChange="calculateDenda()" value="{{$transaksi->tanggal_kembali}}" id="return-date" type="date" class="form-control {{isset($errors->messages()['tanggal_kembali']) ? ' invalid-input' : '' }}" placeholder="Tanggal Pengembalian" name="tanggal_kembali">
+                        @if(isset($errors->messages()['tanggal_kembali']))  
+                        <span class="error-message">*@foreach ($errors->messages()['tanggal_kembali'] as $message)
+                                {{$message." "}}
+                            @endforeach</span>
+                        @endif
+                    </div>  
+>>>>>>> 2f8905bdae88044851027fe3c4c86084eb03b855
                 </div>
         </div>
         
@@ -167,6 +257,10 @@ Tambah Transaksi
 
 <script>
     var harga = {{ $alat->harga_sewa_perhari }};
+<<<<<<< HEAD
+=======
+    var harga_denda  = {{$alat->harga_sewa_perhari*1.2}}
+>>>>>>> 2f8905bdae88044851027fe3c4c86084eb03b855
     function calculate(){ 
         if(document.getElementById('date_end').value != null || document.getElementById('date_end').value != ""){
             var startDay = new Date(document.getElementById('date_start').value);
@@ -181,5 +275,23 @@ Tambah Transaksi
             document.getElementById('total-biaya').innerHTML = 'Rp'+days*harga;
         }
     }
+<<<<<<< HEAD
+=======
+
+    function calculateDenda(){
+        if(document.getElementById('date_end').value != null || document.getElementById('return-date').value != ""){
+            var startDay = new Date(document.getElementById('date_end').value);
+            var endDay = new Date(document.getElementById('return-date').value);
+            var millisecondsPerDay = 1000 * 60 * 60 * 24;
+
+            var millisBetween =  endDay.getTime() - startDay.getTime();
+            var days = millisBetween / millisecondsPerDay;
+            // Round down.
+            
+            document.getElementById('lama-denda-hari').innerHTML = days;
+            document.getElementById('total-denda').innerHTML = 'Rp'+days*harga_denda;
+        }
+    }
+>>>>>>> 2f8905bdae88044851027fe3c4c86084eb03b855
 </script>
 @endsection
