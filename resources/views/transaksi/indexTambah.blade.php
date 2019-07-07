@@ -1,21 +1,13 @@
 @extends('layouts.admin-master')
 
 @section('title')
-<<<<<<< HEAD
 Tambah Transaksi Penyewaan
-=======
-Tambah Transaksi
->>>>>>> 2f8905bdae88044851027fe3c4c86084eb03b855
 @endsection
 
 @section('content')
 <section class="section">
   <div class="section-header">
-<<<<<<< HEAD
           <h1>Tambah Transaksi Penyewaan</h1>
-=======
-          <h1>Daftar Tambah Transaksi</h1>
->>>>>>> 2f8905bdae88044851027fe3c4c86084eb03b855
           
   </div>
 

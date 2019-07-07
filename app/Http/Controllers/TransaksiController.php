@@ -35,10 +35,6 @@ class TransaksiController extends Controller
             $query->where('transaksis.tanggal_kembali','!=',null)
             ->where('transaksis.tanggal_pinjam','!=',null);
         });
-<<<<<<< HEAD
-
-=======
->>>>>>> 2f8905bdae88044851027fe3c4c86084eb03b855
         return Datatables::of($data)->addColumn('action', function ($alat) {
             return '<a href="'.route('transaksi.create',['id'=>$alat->id]).'" class="btn btn-xs btn-success"><i class="glyphicon glyphicon-delete"></i> Pinjam</a>';
         })
@@ -145,15 +141,10 @@ class TransaksiController extends Controller
     {
         $transaksi = Transaksi::find($id);
         if(!$transaksi) return redirect()->back();
-<<<<<<< HEAD
 
         $alat = Alat::find($transaksi->alat_id);
         if(!$alat) return redirect()->back();
         
-=======
-        $alat = Alat::find($transaksi->alat_id);
-        if(!$alat) return redirect()->back();
->>>>>>> 2f8905bdae88044851027fe3c4c86084eb03b855
         return view('transaksi.edit',['transaksi'=>$transaksi,'alat'=>$alat]);
     }
 

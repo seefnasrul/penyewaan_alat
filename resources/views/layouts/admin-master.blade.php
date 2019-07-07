@@ -38,27 +38,15 @@
       </footer>
     </div>
   </div>
-<<<<<<< HEAD
 
   <script src="{{ route('js.dynamic') }}"></script>
   <script src="{{ asset('js/app.js') }}?{{ uniqid() }}"></script> 
    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.nicescroll/3.7.6/jquery.nicescroll.min.js"></script>
-=======
-  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
- 
-  {{-- <script src="{{ route('js.dynamic') }}"></script> --}}
-  {{-- <script src="{{ asset('js/app.js') }}?{{ uniqid() }}"></script> --}}
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.nicescroll/3.7.6/jquery.nicescroll.min.js"></script>
-  <script src="{{ asset('assets/js/scripts.js') }}"></script>
->>>>>>> 2f8905bdae88044851027fe3c4c86084eb03b855
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
   <script src="{{ asset('assets/js/scripts.js') }}"></script>
   <script src="{{ asset('assets/js/stisla.js') }}"></script>
-<<<<<<< HEAD
   
 
-=======
->>>>>>> 2f8905bdae88044851027fe3c4c86084eb03b855
   <!-- DataTables -->
   
   <script src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
