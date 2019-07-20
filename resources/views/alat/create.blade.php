@@ -12,7 +12,11 @@ Tambah Alat
 
   <div class="section-body">
     <div class="container">
-            <form action="{{route('alat.create')}}" method="POST">
+            @foreach ($errors->all() as $error)
+               <div style="color:red;">{{ $error }}</div>
+           @endforeach
+         
+        <form action="{{route('alat.create')}}" method="POST" enctype="multipart/form-data">
         <div class="row">
             
             
@@ -20,9 +24,13 @@ Tambah Alat
                         {{ csrf_field() }}
                     <div class="form-group">
                         <label>Jenis Alat</label>
-                        <input type="text" class="form-control {{isset($errors->messages()['jenis_peralatan']) ? ' invalid-input' : '' }}" placeholder="Jenis Alat" name="jenis_peralatan">
-                        @if(isset($errors->messages()['jenis_peralatan']))  
-                        <span class="error-message">*@foreach ($errors->messages()['jenis_peralatan'] as $message)
+                        <select name="jenis_id" class="form-control {{isset($errors->messages()['jenis_peralatan']) ? ' invalid-input' : '' }}" >
+                            @foreach ($jenis as $j)
+                                <option value="{{$j->id}}">{{$j->nama}}</option>
+                            @endforeach
+                        </select>
+                        @if(isset($errors->messages()['jenis_id']))  
+                        <span class="error-message">*@foreach ($errors->messages()['jenis_id'] as $message)
                                 {{$message." "}}
                             @endforeach</span>
                         @endif
@@ -78,6 +86,16 @@ Tambah Alat
                             @endforeach</span>
                         @endif
                     </div>
+
+                    <div class="form-group">
+                            <label>Gambar</label>
+                            <input type="file" name="image" class="form-control {{isset($errors->messages()['image']) ? ' invalid-input' : '' }}" />
+                            @if(isset($errors->messages()['image']))  
+                            <span class="error-message">*@foreach ($errors->messages()['image'] as $message)
+                                    {{$message." "}}
+                                @endforeach</span>
+                            @endif
+                        </div>
 
                     <div class="form-group">
                         <label>Harga Sewa / Hari (Rp/Rupiah)</label>

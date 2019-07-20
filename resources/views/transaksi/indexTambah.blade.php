@@ -38,7 +38,7 @@ Tambah Transaksi Penyewaan
             ajax: '{!! route('transaksi.get-data-tambah-transaksi') !!}',
             columns: [
                 { data: 'id', name: 'id' },
-                { data: 'jenis_peralatan', name: 'jenis_peralatan' },
+                { data: 'jenis_id', name: 'jenis_id' },
                 { data: 'tipe', name: 'tipe' },
                 { data: 'kapasitas', name: 'kapasitas' },
                 { data: 'harga_sewa_perhari', name: 'harga_sewa_perhari' },
