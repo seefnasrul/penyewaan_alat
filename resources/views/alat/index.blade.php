@@ -11,7 +11,9 @@ Dashboard
   </div>
 
   <div class="section-body">
+      @if(Auth::user()->jabatan == "perusahaan")
       <a class="btn btn-primary"style="text-alight:right" href="{{route('alat.create')}}">Tambah</a>
+      @endif
       <table class="table table-bordered" id="alat-table">
           <thead>
               <tr>

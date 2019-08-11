@@ -17,4 +17,9 @@ class Transaksi extends Model
         'total_biaya_sewa',
         'total_denda',
     ];
+
+
+    public function alat(){
+        return $this->belongsTo(Alat::class,'alat_id','id');
+    }
 }

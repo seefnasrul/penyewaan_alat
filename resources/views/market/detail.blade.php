@@ -31,6 +31,7 @@
           </div>
           <div class="card-body">
             <table style="width:100%;">
+              
                 <tr>
                     <td ><b>Nama Perusahaan</b></td>
                     <td>{{$data->nama_perusahaan}}</td>

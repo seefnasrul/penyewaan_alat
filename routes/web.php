@@ -80,6 +80,7 @@ Route::name('pengguna.')->prefix('pengguna')->group(function() {
 
 Route::name('laporan.')->prefix('laporan')->group(function() {
     Route::get('','LaporanController@index')->name('index');
+    Route::get('generate','LaporanController@generateReport')->name('generate_report');
 });
 
 

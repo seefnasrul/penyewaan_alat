@@ -20,4 +20,9 @@ class Alat extends Model
         'created_by',
     ];
     
+    public function pemilik(){
+        return $this->belongsTo(User::class,'created_by','id');
+    }
+
+    
 }

@@ -54,7 +54,7 @@ class MarketController extends Controller
         $alat = Alat::findorfail($id);
 
         $data = Alat::select('jenis.nama','perusahaans.nama_perusahaan','perusahaans.email as email_perusahaan','perusahaans.alamat',
-        'perusahaans.email as no_telp','alats.*')
+        'perusahaans.no_telp as no_telp','alats.*')
         ->join('jenis','jenis.id','alats.jenis_id')
         ->leftjoin('users','users.id','alats.created_by')
         ->leftjoin('perusahaans','perusahaans.user_id','users.id')        

@@ -32,10 +32,8 @@
               <div class="carousel-item @if($key==0) active @endif">
                 <img class="d-block img-fluid" src="{{url('uploads/'.$item->image)}}" alt="First slide" style="width:100%;height:300px;">
                 <div class="carousel-caption">
-                
                   <h3 style="background:grey;">{{$item->tipe}}</h3>
                   <p style="background:grey;">{{format_rupiah($item->harga_sewa_perhari)}}</p>    
-                
                 </div>
               </div>  
             @endforeach
