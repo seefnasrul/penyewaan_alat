@@ -11,7 +11,7 @@ Pengguna
   </div>
 
   <div class="section-body">
-      <a class="btn btn-primary"style="text-alight:right" href="{{route('register')}}">Tambah</a>
+      {{-- <a class="btn btn-primary"style="text-alight:right" href="{{route('register')}}">Tambah</a> --}}
       <table class="table table-bordered" id="alat-table">
           <thead>
               <tr>

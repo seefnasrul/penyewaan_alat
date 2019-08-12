@@ -8,6 +8,7 @@ use App\Alat;
 use Yajra\Datatables\Datatables;
 use DateTime;
 use DB;
+use Auth;
 USE Carbon\Carbon;
 class TransaksiController extends Controller
 {
@@ -28,12 +29,15 @@ class TransaksiController extends Controller
 
     public function getDataTambahTransaksi(){
         $data = Alat::select('alats.*')->leftjoin('transaksis','alats.id','transaksis.alat_id');
-        $data = $data->where(function($query) {
+        $user_id = Auth::user()->id;
+        $data = $data->where(function($query) use($user_id){
             $query->where('transaksis.tanggal_kembali','=',null)
-            ->where('transaksis.tanggal_pinjam','=',null);
-        })->orWhere(function($query) {
+            ->where('transaksis.tanggal_pinjam','=',null)
+            ->where('alats.created_by',$user_id);
+        })->orWhere(function($query) use($user_id){
             $query->where('transaksis.tanggal_kembali','!=',null)
-            ->where('transaksis.tanggal_pinjam','!=',null);
+            ->where('transaksis.tanggal_pinjam','!=',null)
+            ->where('alats.created_by',$user_id);
         });
         return Datatables::of($data)->addColumn('action', function ($alat) {
             return '<a href="'.route('transaksi.create',['id'=>$alat->id]).'" class="btn btn-xs btn-success"><i class="glyphicon glyphicon-delete"></i> Pinjam</a>';
@@ -45,6 +49,9 @@ class TransaksiController extends Controller
 
         $data = Transaksi::select('transaksis.id','alats.id as alat_id','tanggal_pinjam','tanggal_rencana_kembali','nama_peminjam',DB::RAW('(CASE WHEN tanggal_kembali IS NULL THEN "Belum Dikembalikan" ELSE "Dikembalikan" END) as status_pinjam'),
         'transaksis.created_at')->join('alats','alats.id','transaksis.alat_id');
+        if(Auth::user()->jabatan == "perusahaan"){
+            $data = $data->where('alats.created_by',Auth::user()->id);
+        }
         return Datatables::of($data)->addColumn('action', function ($t) {
             return '<a href="'.route('transaksi.edit',['id'=>$t->id]).'" class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-edit"></i> Perbarui</a>';
         })

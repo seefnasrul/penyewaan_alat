@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Alat;
+use App\Jenis;
 use Yajra\Datatables\Datatables;
+use File;
+use Auth;
 class AlatController extends Controller
 {
      /**
@@ -17,7 +20,14 @@ class AlatController extends Controller
         return view('alat.index');
     }
     public function getAlats(){
-        return Datatables::of(Alat::query())->addColumn('action', function ($alat) {
+        
+
+        if(Auth::user()->jabatan == "perusahaan"){
+            $data = Alat::where('created_by',Auth::user()->id);
+        }else{
+            $data = Alat::query();
+        }
+        return Datatables::of($data)->addColumn('action', function ($alat) {
             return '<a href="'.route('alat.edit',['id'=>$alat->id]).'" class="btn btn-xs btn-primary"><i class="glyphicon glyphicon-edit"></i> Edit</a><a href="'.route('alat.delete',['id'=>$alat->id]).'" class="btn btn-xs btn-danger"><i class="glyphicon glyphicon-delete"></i> Delete</a>';
         })
         ->make(true);
@@ -29,7 +39,8 @@ class AlatController extends Controller
      */
     public function create()
     {
-        return view('alat.create');
+        $jenis = Jenis::all();
+        return view('alat.create',compact('jenis'));
     }
 
     /**
@@ -41,14 +52,22 @@ class AlatController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'jenis_peralatan'=>'required',
+            'jenis_id'=>'required',
             'tipe'=>'required',
             'no_reg'=>'required',
             'harga_sewa_perhari'=>'required|integer',
+            'image'=>'required|image|mimes:jpeg,png,gif,webp,jpg|max:2048',
         ]);
 
-        Alat::create($request->all());
+        $request->merge(['created_by'=>Auth::user()->id]);
 
+        $file = $request->file('image');
+        $filename = 'alat-' . time() . '.' . $file->getClientOriginalExtension();
+        $folder = $file->move('uploads', $filename);
+        // dd($filename);
+        $request = new Request($request->all());
+        $request->merge(['image'=>$filename]);
+        Alat::create($request->all());
         return redirect()->route('alat.index');
     }
 
@@ -71,9 +90,14 @@ class AlatController extends Controller
      */
     public function edit($id)
     {
-        $alat = Alat::find($id);
+        $alat = Alat::findorfail($id);
+        $jenis = Jenis::all();
         if(!$alat) return redirect()->back();
-        return view('alat.edit',['alat'=>$alat]);
+
+        if($alat->created_by != Auth::user()->id && Auth::user()->jabatan == "perusahaan"){
+            return abort(403,'Bukan Hak Akses Anda');
+        }
+        return view('alat.edit',['alat'=>$alat,'jenis'=>$jenis]);
     }
 
     /**
@@ -86,13 +110,30 @@ class AlatController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'jenis_peralatan'=>'required',
+            'jenis_id'=>'required',
             'tipe'=>'required',
             'no_reg'=>'required',
             'harga_sewa_perhari'=>'required|integer',
+            'image'=>'image|mimes:jpeg,png,gif,webp|max:2048',
         ]);
         $alat = Alat::find($id);
         if(!$alat) return redirect()->back();
+
+        
+        if($request->has('image')){
+
+            $file = $request->file('image');
+            $filename = 'alat-' . time() . '.' . $file->getClientOriginalExtension();
+            $folder = $file->move('uploads', $filename);
+            
+            $request = new Request($request->all());
+            $request->merge(['image'=>$filename]);
+
+            $image_path = public_path().'/uploads/'.$alat->image;  
+            if(File::exists($image_path)) {
+                File::delete($image_path);
+            }
+        }
         $alat->update($request->all());
         return redirect()->route('alat.index');
     }

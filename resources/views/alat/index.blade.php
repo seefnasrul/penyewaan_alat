@@ -11,12 +11,14 @@ Dashboard
   </div>
 
   <div class="section-body">
+      @if(Auth::user()->jabatan == "perusahaan")
       <a class="btn btn-primary"style="text-alight:right" href="{{route('alat.create')}}">Tambah</a>
+      @endif
       <table class="table table-bordered" id="alat-table">
           <thead>
               <tr>
                   <th>ID Alat</th>
-                  <th>Jenis Peralatan</th>
+                  <th>Jenis</th>
                   <th>Tipe</th>
                   <th>Kapasitas</th>
                   <th>Harga Sewa / Hari (Rp)</th>
@@ -37,7 +39,7 @@ Dashboard
             ajax: '{!! route('alat.get-data') !!}',
             columns: [
                 { data: 'id', name: 'id' },
-                { data: 'jenis_peralatan', name: 'jenis_peralatan' },
+                { data: 'jenis_id', name: 'jenis_id' },
                 { data: 'tipe', name: 'tipe' },
                 { data: 'kapasitas', name: 'kapasitas' },
                 { data: 'harga_sewa_perhari', name: 'harga_sewa_perhari' },

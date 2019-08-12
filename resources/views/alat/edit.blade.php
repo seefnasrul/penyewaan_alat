@@ -12,18 +12,23 @@ Tambah Alat
 
   <div class="section-body">
     <div class="container">
-            <form action="{{route('alat.update',['id'=>$alat->id])}}" method="POST">
+            <form action="{{route('alat.update',['id'=>$alat->id])}}" method="POST"  enctype="multipart/form-data">
         <div class="row">
             
             
                 <div class="col-md-6">
                         {{ method_field('PUT') }}
                         {{ csrf_field() }}
+
                     <div class="form-group">
                         <label>Jenis Alat</label>
-                        <input value="{{$alat->jenis_peralatan}}" type="text" class="form-control {{isset($errors->messages()['jenis_peralatan']) ? ' invalid-input' : '' }}" placeholder="Jenis Alat" name="jenis_peralatan">
-                        @if(isset($errors->messages()['jenis_peralatan']))  
-                        <span class="error-message">*@foreach ($errors->messages()['jenis_peralatan'] as $message)
+                        <select name="jenis_id" class="form-control {{isset($errors->messages()['jenis_peralatan']) ? ' invalid-input' : '' }}" >
+                            @foreach ($jenis as $j)
+                                <option value="{{$j->id}}" @if($j->id == $alat->jenis_id) selected="selected" @endif>{{$j->nama}}</option>
+                            @endforeach
+                        </select>
+                        @if(isset($errors->messages()['jenis_id']))  
+                        <span class="error-message">*@foreach ($errors->messages()['jenis_id'] as $message)
                                 {{$message." "}}
                             @endforeach</span>
                         @endif
@@ -79,6 +84,31 @@ Tambah Alat
                             @endforeach</span>
                         @endif
                     </div>
+
+                    <div class="form-group">
+                        <label>Gambar</label>
+                        <input type="file" name="image" class="form-control {{isset($errors->messages()['image']) ? ' invalid-input' : '' }}" />
+                        @if(isset($errors->messages()['image']))  
+                        <span class="error-message">*@foreach ($errors->messages()['image'] as $message)
+                                {{$message." "}}
+                            @endforeach</span>
+                        @endif
+                    </div>
+                    <div class="form-group">
+                            <label>Gambar</label>
+                            {{-- <input type="file" class="form-control {{isset($errors->messages()['scan_identitas']) ? ' invalid-input' : '' }}" placeholder="No KTP / SIM" name="scan_identitas">
+                            @if(isset($errors->messages()['scan_identitas']))  
+                            <span class="error-message">*@foreach ($errors->messages()['scan_identitas'] as $message)
+                                    {{$message." "}}
+                                @endforeach</span>
+                            @endif --}}
+                            <div class="card">
+                                <div class="card-body">
+                                    <p class="card-title">Uploaded Gambar</p>
+                                    <a style="pointer:hand;" href="{{url('uploads/'.$alat->image)}}" target="_blank"><img src="{{url('uploads/'.$alat->image)}}" alt="" height="150" /></a>
+                                </div>
+                            </div>
+                        </div>
 
                     <div class="form-group">
                         <label>Harga Sewa / Hari (Rp/Rupiah)</label>

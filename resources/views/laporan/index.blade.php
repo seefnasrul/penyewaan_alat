@@ -11,23 +11,28 @@ Laporan Bulanan
   </div>
 
   <div class="section-body">
-      <a class="btn btn-primary"style="text-alight:right" href="{{route('alat.create')}}">Tambah</a>
-      <table class="table table-bordered" id="alat-table">
-          <thead>
-              <tr>
-                  <th>ID Alat</th>
-                  <th>Jenis Peralatan</th>
-                  <th>Tipe</th>
-                  <th>Kapasitas</th>
-                  <th>Harga Sewa / Hari (Rp)</th>
-                  <th>Created At</th>
-                  <th>Updated At</th>
-                  <th>Action</th>
-              </tr>
-          </thead>
-      </table>
+  <form action="{{route('laporan.generate_report')}}">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="date-start">Tanggal Mulai</label>
+                    <input class="form-control" type="date" name="date_start" id="date-start" />   
+                </div> 
+            </div>
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label for="date-start">Tanggal Akhir</label>
+                    <input class="form-control" type="date" name="date_end" id="date-end" />   
+                </div> 
+            </div>
+            <div class="col-md-12">
+                <button class="btn btn-primary btn-block">Generate Report</button>
+            </div>
+        </div>
+        
+    </form>
   </div>
-</section>
+{{-- </section>
 @push('scripts')
 <script>
     $(function() {
@@ -62,5 +67,5 @@ Laporan Bulanan
     </script>
     
     @endif
-  @endpush
+  @endpush --}}
 @endsection

@@ -1,8 +1,8 @@
 <?php
-Route::get('/', function() {
-    return redirect(route('admin.dashboard'));
-});
-
+Route::get('/', 'MarketController@index')->name('market.home');
+Route::get('/detail/{id}', 'MarketController@detail')->name('market.detail');
+Route::get('/daftar','PerusahaanController@daftar');
+Route::post('/daftar','PerusahaanController@register')->name('market.register');
 Route::get('home', function() {
     return redirect(route('admin.dashboard'));
 });
@@ -32,6 +32,17 @@ Route::name('js.')->group(function() {
 // Get authenticated user
 Route::get('users/auth', function() {
     return response()->json(['user' => Auth::check() ? Auth::user() : false]);
+});
+
+
+Route::name('jenis.')->prefix('jenis')->group(function() {
+    Route::get('','JenisController@index')->name('index');
+    Route::get('create','JenisController@create')->name('create');
+    Route::post('create','JenisController@store')->name('store');
+    Route::get('get-data','JenisController@getJenis')->name('get-data');
+    Route::get('{id}/edit','JenisController@edit')->name('edit');
+    Route::put('{id}','JenisController@update')->name('update');
+    Route::get('{id}/delete','JenisController@destroy')->name('delete');
 });
 
 Route::name('alat.')->prefix('alat')->group(function() {
@@ -69,5 +80,7 @@ Route::name('pengguna.')->prefix('pengguna')->group(function() {
 
 Route::name('laporan.')->prefix('laporan')->group(function() {
     Route::get('','LaporanController@index')->name('index');
+    Route::get('generate','LaporanController@generateReport')->name('generate_report');
 });
+
 

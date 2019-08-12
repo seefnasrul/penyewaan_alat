@@ -15,13 +15,15 @@ class CreateAlatsTable extends Migration
     {
         Schema::create('alats', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('jenis_peralatan');
             $table->string('tipe');
             $table->string('no_reg')->nullable();
             $table->string('kapasitas')->nullable();
             $table->string('no_polisi')->nullable();
             $table->text('keterangan')->nullable();
+            $table->string('image')->nullable();
             $table->bigInteger('harga_sewa_perhari');
+            $table->bigInteger('jenis_id');
+            $table->bigInteger('created_by');
             $table->timestamps();
         });
     }
